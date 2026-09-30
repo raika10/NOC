@@ -1,0 +1,109 @@
+.chess-board {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-rows: repeat(8, minmax(0, 1fr));
+  width: min(80vmin, 560px);
+  height: min(80vmin, 560px);
+  border: 4px solid #3a2a1a;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.square {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-size: clamp(1.6rem, 5vmin, 2.8rem);
+  line-height: 1;
+  user-select: none;
+}
+
+.square--light {
+  background: #eed6b3;
+}
+
+.square--dark {
+  background: #8a5a3b;
+}
+
+.square--selected {
+  outline: 3px solid #ffd54a;
+  outline-offset: -3px;
+  z-index: 1;
+}
+
+.square--last-move {
+  box-shadow: inset 0 0 0 999px rgba(255, 213, 74, 0.28);
+}
+
+.square--check {
+  box-shadow: inset 0 0 0 999px rgba(220, 40, 40, 0.55);
+}
+
+.piece {
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
+  transition: transform 0.08s ease;
+}
+
+.square:hover .piece {
+  transform: scale(1.08);
+}
+
+.piece--white {
+  color: #fdfdfd;
+}
+
+.piece--black {
+  color: #1a1a1a;
+}
+
+.move-hint {
+  position: absolute;
+  width: 28%;
+  height: 28%;
+  border-radius: 50%;
+  background: rgba(30, 30, 30, 0.35);
+  pointer-events: none;
+}
+
+.move-hint--capture {
+  width: 92%;
+  height: 92%;
+  background: transparent;
+  border: 4px solid rgba(200, 30, 30, 0.65);
+  box-sizing: border-box;
+}
+
+.square__rank-label,
+.square__file-label {
+  position: absolute;
+  font-size: 0.65rem;
+  font-weight: 600;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.square--light .square__rank-label,
+.square--light .square__file-label {
+  color: #8a5a3b;
+}
+
+.square--dark .square__rank-label,
+.square--dark .square__file-label {
+  color: #eed6b3;
+}
+
+.square__rank-label {
+  top: 2px;
+  left: 3px;
+}
+
+.square__file-label {
+  bottom: 2px;
+  right: 4px;
+}
