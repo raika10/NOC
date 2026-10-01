@@ -24,9 +24,11 @@
 }
 
 .promotion-dialog__options button {
-  font-size: 2.2rem;
-  width: 3.2rem;
-  height: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.4rem;
+  height: 3.4rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.08);
@@ -35,4 +37,8 @@
 
 .promotion-dialog__options button:hover {
   background: rgba(255, 255, 255, 0.2);
+}
+
+.promotion-dialog__options .piece {
+  font-size: 2.2rem;
 }

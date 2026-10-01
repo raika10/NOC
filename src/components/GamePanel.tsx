@@ -21,7 +21,7 @@ function turnLabel(color: GameState['turn']) {
 }
 
 export function GamePanel({ gameState, onReset }: GamePanelProps) {
-  const { status, turn, winner, history } = gameState;
+  const { status, turn, winner } = gameState;
 
   let headline: string;
   if (status === 'checkmate') {
@@ -41,24 +41,6 @@ export function GamePanel({ gameState, onReset }: GamePanelProps) {
       <button type="button" className="game-panel__reset" onClick={onReset}>
         新しい対局
       </button>
-      <h2 className="game-panel__history-title">棋譜</h2>
-      <ol className="game-panel__history">
-        {chunkMoves(history.map((m) => m.notation ?? '')).map(([whiteMove, blackMove], index) => (
-          <li key={index}>
-            <span className="game-panel__move-number">{index + 1}.</span>
-            <span className="game-panel__move">{whiteMove}</span>
-            <span className="game-panel__move">{blackMove ?? ''}</span>
-          </li>
-        ))}
-      </ol>
     </aside>
   );
-}
-
-function chunkMoves(moves: string[]): [string, string | undefined][] {
-  const pairs: [string, string | undefined][] = [];
-  for (let i = 0; i < moves.length; i += 2) {
-    pairs.push([moves[i], moves[i + 1]]);
-  }
-  return pairs;
 }

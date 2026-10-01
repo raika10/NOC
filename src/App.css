@@ -14,3 +14,9 @@
   justify-content: center;
   gap: 2rem;
 }
+
+.app__board-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
