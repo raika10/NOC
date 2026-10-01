@@ -18,7 +18,7 @@ export function PromotionDialog({ color, onChoose, onCancel }: PromotionDialogPr
         <div className="promotion-dialog__options">
           {CHOICES.map((type) => (
             <button key={type} type="button" onClick={() => onChoose(type)} aria-label={type}>
-              {pieceGlyph(color, type)}
+              <span className={`piece piece--${color}`}>{pieceGlyph(type)}</span>
             </button>
           ))}
         </div>

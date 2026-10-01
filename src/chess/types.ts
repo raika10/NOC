@@ -40,7 +40,8 @@ export type GameStatus =
   | 'stalemate'
   | 'draw-fifty-move'
   | 'draw-repetition'
-  | 'draw-insufficient-material';
+  | 'draw-insufficient-material'
+  | 'resigned';
 
 export interface GameState {
   board: Board;

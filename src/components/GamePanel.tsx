@@ -3,6 +3,7 @@ import './GamePanel.css';
 
 interface GamePanelProps {
   gameState: GameState;
+  onResign: () => void;
   onReset: () => void;
 }
 
@@ -14,17 +15,19 @@ const STATUS_LABEL: Record<GameState['status'], string> = {
   'draw-fifty-move': '引き分け(50手ルール)',
   'draw-repetition': '引き分け(同一局面3回)',
   'draw-insufficient-material': '引き分け(駒不足)',
+  resigned: '投了',
 };
 
 function turnLabel(color: GameState['turn']) {
   return color === 'white' ? '白' : '黒';
 }
 
-export function GamePanel({ gameState, onReset }: GamePanelProps) {
-  const { status, turn, winner, history } = gameState;
+export function GamePanel({ gameState, onResign, onReset }: GamePanelProps) {
+  const { status, turn, winner } = gameState;
+  const isGameOver = status !== 'playing' && status !== 'check';
 
   let headline: string;
-  if (status === 'checkmate') {
+  if (status === 'checkmate' || status === 'resigned') {
     headline = `${turnLabel(winner!)}の勝ち — ${STATUS_LABEL[status]}`;
   } else if (status.startsWith('draw') || status === 'stalemate') {
     headline = STATUS_LABEL[status];
@@ -38,27 +41,17 @@ export function GamePanel({ gameState, onReset }: GamePanelProps) {
       <p className="game-panel__status" data-status={status}>
         {headline}
       </p>
-      <button type="button" className="game-panel__reset" onClick={onReset}>
-        新しい対局
-      </button>
-      <h2 className="game-panel__history-title">棋譜</h2>
-      <ol className="game-panel__history">
-        {chunkMoves(history.map((m) => m.notation ?? '')).map(([whiteMove, blackMove], index) => (
-          <li key={index}>
-            <span className="game-panel__move-number">{index + 1}.</span>
-            <span className="game-panel__move">{whiteMove}</span>
-            <span className="game-panel__move">{blackMove ?? ''}</span>
-          </li>
-        ))}
-      </ol>
+      {isGameOver ? (
+        <button type="button" className="game-panel__reset" onClick={onReset}>
+          新しい対局
+        </button>
+      ) : (
+        gameState.history.length > 0 && (
+          <button type="button" className="game-panel__reset" onClick={onResign}>
+            投了
+          </button>
+        )
+      )}
     </aside>
   );
-}
-
-function chunkMoves(moves: string[]): [string, string | undefined][] {
-  const pairs: [string, string | undefined][] = [];
-  for (let i = 0; i < moves.length; i += 2) {
-    pairs.push([moves[i], moves[i + 1]]);
-  }
-  return pairs;
 }
