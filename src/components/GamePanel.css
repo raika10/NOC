@@ -20,6 +20,7 @@
 }
 
 .game-panel__status[data-status='checkmate'],
+.game-panel__status[data-status='resigned'],
 .game-panel__status[data-status='check'] {
   background: rgba(220, 40, 40, 0.35);
 }

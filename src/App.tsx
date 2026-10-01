@@ -16,8 +16,9 @@ function App() {
     selectSquare,
     confirmPromotion,
     cancelPromotion,
+    resign,
     resetGame,
-  } = useChessGame();
+  }= useChessGame();
 
   return (
     <div className="app">
@@ -33,7 +34,7 @@ function App() {
           />
           <MoveHistory history={gameState.history} />
         </div>
-        <GamePanel gameState={gameState} onReset={resetGame} />
+        <GamePanel gameState={gameState} onResign={resign} onReset={resetGame} />
       </main>
       {pendingPromotion && (
         <PromotionDialog color={gameState.turn} onChoose={confirmPromotion} onCancel={cancelPromotion} />

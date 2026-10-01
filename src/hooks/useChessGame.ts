@@ -92,6 +92,16 @@ export function useChessGame() {
     setPendingPromotion(null);
   }, []);
 
+  const resign = useCallback(() => {
+    setGameState((state) => ({
+      ...state,
+      status: 'resigned',
+      winner: state.turn === 'white' ? 'black' : 'white',
+    }));
+    setSelected(null);
+    setPendingPromotion(null);
+  }, []);
+
   const resetGame = useCallback(() => {
     captureTimers.current.forEach(clearTimeout);
     captureTimers.current = [];
@@ -113,6 +123,7 @@ export function useChessGame() {
     selectSquare,
     confirmPromotion,
     cancelPromotion,
+    resign,
     resetGame,
   };
 }
